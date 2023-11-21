@@ -8,10 +8,13 @@ public class TRAII_23_X5_pohja implements TRAII_23_X5 {
 
     /**
      * ITSEARVIOINTI TÃ„HÃ„N:
-     *
-     *
-     *
-     *
+     * Aikavaativuus oli hankala arvioida algoritmissani mutta uskoisin, että sen aikavaativuus on O(2^e), missä
+     * e on kaarten määrä verkossa. Aikavaativuus on hyvin suuri, mutta mielestäni tätä tehokkaampaa algoritmia ei
+     * voi saada tai ainakaan itse en saanut.
+     * Algoritmini täten on oikein toimiva, jossa käydään lähtösolmun naapureita läpi ja niiden kaaria läpi metodissa.
+     * Rekursion avulla liikutaan verkossa solmusta seuraavaan.
+     * Parannusehdotuksia en keksinyt algoritmiini mitään, enkä usko, että sitä voisi parantaa ainakaan aikavaativuden
+     * kannalta.
      **/
     /**
      * Kaikki erilaiset annetusta solmusta lahtoSolmu lÃ¤htevÃ¤t
@@ -83,7 +86,7 @@ public class TRAII_23_X5_pohja implements TRAII_23_X5 {
                     //Lisätään lista hashsettiin
                     tulos.add(lista);
 
-                    //Tehdään rekursio kutsu ja lisätään paino muuttujan käsiteltävän kaaren paino
+                    //Tehdään rekursio kutsu ja lisätään paino muuttujaan käsiteltävän kaaren paino
                     etsiPolut(kaari.getEndPoint(solmu), maxPaino, tulos, lista, painot+kaari.getWeight());
                     //Värjätään kaaren päätesolmu valkoiseksi
                     kaari.getEndPoint(solmu).setColor(DiGraph.WHITE);
