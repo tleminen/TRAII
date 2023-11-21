@@ -4,13 +4,15 @@ import fi.uef.cs.tra.*;
 
 import java.util.*;
 
-public class TRAII_23_X5_pohja implements TRAII_23_X5 {
+public class TRAII_23_X5_tleminen implements TRAII_23_X5 {
 
     /**
      * ITSEARVIOINTI TÃ„HÃ„N:
-     * Aikavaativuus oli hankala arvioida algoritmissani mutta uskoisin, että sen aikavaativuus on O(2^e), missä
-     * e on kaarten määrä verkossa. Aikavaativuus on hyvin suuri, mutta mielestäni tätä tehokkaampaa algoritmia ei
-     * voi saada tai ainakaan itse en saanut.
+     * Aikavaativuus oli hankala arvioida algoritmissani mutta uskoisin, että
+     * se on eksponentiaalinen eli sen aikavaativuus on O(2^e), missä e on kaarten määrä verkossa.
+     * Pahimmassa tapauksessa kaikki solmut ja kaaret joudutaan käymään läpi verkossa useaan kertaan.
+     * Täten aikavaativuus on melko suuri eli eksponentiaalinen.
+     * Aikavaativuus on suuri, mutta mielestäni tätä tehokkaampaa algoritmia ei voi saada tai ainakaan itse en saanut.
      * Algoritmini täten on oikein toimiva, jossa käydään lähtösolmun naapureita läpi ja niiden kaaria läpi metodissa.
      * Rekursion avulla liikutaan verkossa solmusta seuraavaan.
      * Parannusehdotuksia en keksinyt algoritmiini mitään, enkä usko, että sitä voisi parantaa ainakaan aikavaativuden
@@ -40,6 +42,8 @@ public class TRAII_23_X5_pohja implements TRAII_23_X5 {
         varitaSolmut(verkko, DiGraph.WHITE);
         //Käydään lähtösolmun naapurit läpi
         for(Vertex solmu : lahtoSolmu.neighbors()){
+
+            //Mikäli lähtösolmun ja sen naapurisolmun kaaren paino on pienempi tai yhtäsuuri kuin maxpaino niin...
             if(lahtoSolmu.getEdge(solmu).getWeight()<=maxPaino){
                 //Tehdään lista solmuja varten
                 List<Vertex> listaSolmuille = new LinkedList<>();
@@ -50,8 +54,11 @@ public class TRAII_23_X5_pohja implements TRAII_23_X5 {
 
                 //Lisätään listaan lähtösolmun naapurisolmu
                 listaSolmuille.add(solmu);
+
+                //Lisätään lista tulos hashsettiin
                 tulos.add(listaSolmuille);
 
+                //Kutsutaan metodia/rekursiota
                 etsiPolut(solmu,maxPaino,tulos,listaSolmuille, lahtoSolmu.getEdge(solmu).getWeight());
                 //Värjätään lähtösolmu valkoiseksi
                 lahtoSolmu.setColor(DiGraph.WHITE);
@@ -63,7 +70,7 @@ public class TRAII_23_X5_pohja implements TRAII_23_X5 {
         return tulos;
     }
     private static void varitaSolmut(AbstractGraph g, int vari) {
-        //Värjätään verkon kaikki solmut for each loopissa
+        //Värjätään verkon kaikki solmut valkoiseksi for each loopissa
         for (Vertex v : g.vertices())
             v.setColor(vari);
     }

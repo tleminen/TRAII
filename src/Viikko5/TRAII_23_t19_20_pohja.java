@@ -1,9 +1,6 @@
 package Viikko5;
 
-import fi.uef.cs.tra.AbstractGraph;
-import fi.uef.cs.tra.Edge;
-import fi.uef.cs.tra.Graph;
-import fi.uef.cs.tra.Vertex;
+import fi.uef.cs.tra.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -91,8 +88,34 @@ public class TRAII_23_t19_20_pohja {
     static void taydennaYhtenaiseksi(Graph G) {
 
         // TODO
-
+        varita(G, DiGraph.WHITE);
+        List<Vertex> lista = new LinkedList<>();
+        for(Vertex x : G.vertices()){
+            if(katsoKaaret(x,G, lista)){
+                break;
+            }
+        }
     }   // taydennaYhtenaiseksi()
+    private static boolean katsoKaaret(Vertex solmu, Graph g, List<Vertex> lista){
+        solmu.setColor(DiGraph.GRAY);
+        int kaaret = 0;
+        for(Edge e : g.edges()){
+            if(e.getEndPoint() == solmu){
+                kaaret++;
+            }
+        }
+        if(kaaret == 0){
+            solmu.addEdge(lista.get(lista.size()-1));
+            return true;
+        }
+        for (Vertex v : solmu.neighbors()){
+            if(v.getColor()!=DiGraph.GRAY){
+                lista.add(solmu);
+                katsoKaaret(v,g,lista);
+            }
+        }
+        return false;
+    }
 
 
 
