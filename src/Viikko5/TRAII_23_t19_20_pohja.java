@@ -88,33 +88,32 @@ public class TRAII_23_t19_20_pohja {
     static void taydennaYhtenaiseksi(Graph G) {
 
         // TODO
-        varita(G, DiGraph.WHITE);
-        List<Vertex> lista = new LinkedList<>();
+        //Käymme verkon solmut läpi for each loopissa
         for(Vertex x : G.vertices()){
-            if(katsoKaaret(x,G, lista)){
-                break;
+            //Kutsutaan metodia/rekursiota
+            katsoKaaret(x);
+
+            //Jos solmu on valkoinen niin sillä ei ole naapureita eli siinä solmussa ei ole silloin käyty
+            if(x.getColor()==DiGraph.WHITE){
+                //Lisätään solmulle kaari
+                x.addEdge(G.firstVertex());
             }
         }
     }   // taydennaYhtenaiseksi()
-    private static boolean katsoKaaret(Vertex solmu, Graph g, List<Vertex> lista){
-        solmu.setColor(DiGraph.GRAY);
-        int kaaret = 0;
-        for(Edge e : g.edges()){
-            if(e.getEndPoint() == solmu){
-                kaaret++;
-            }
-        }
-        if(kaaret == 0){
-            solmu.addEdge(lista.get(lista.size()-1));
-            return true;
-        }
+    private static void katsoKaaret(Vertex solmu){
+
+        //Käydään solmun naapurit läpi
         for (Vertex v : solmu.neighbors()){
-            if(v.getColor()!=DiGraph.GRAY){
-                lista.add(solmu);
-                katsoKaaret(v,g,lista);
+            //Jos naapurin väri on valkoinen niin...
+            if(v.getColor()==DiGraph.WHITE){
+                //solmu.setColor(DiGraph.GRAY);
+                //Väritetään solmu harmaaksi
+                v.setColor(DiGraph.GRAY);
+                //Kutsutaan rekursiota
+                katsoKaaret(v);
             }
         }
-        return false;
+
     }
 
 
@@ -153,6 +152,24 @@ public class TRAII_23_t19_20_pohja {
     static void taydenna2yhtenaiseksi(Graph G) {
 
         // TODO
+        //Niin kauan käydään while looppia läpi kun on leikkaussolmuja listassa
+        while(true){
+            LinkedList<Vertex> lista = leikkausSolmut(G);
+            //sitten kun lista on tyhjä niin tehdään break ja while loop loppuu
+            if(lista.isEmpty()){
+                break;
+            }
+            //Käydään kahden leikkaussolmun
+            for(Vertex solmu : lista.get(lista.size()-1).neighbors()){
+                for(Vertex solmu2 : lista.get(0).neighbors()){
+                    if(solmu != solmu2 && !solmu.isAdjacent(solmu2)){
+                        solmu.addEdge(solmu2);
+                        break;
+                    }
+                    break;
+                }
+            }
+        }
 
     }
 
