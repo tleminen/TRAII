@@ -56,12 +56,12 @@ public class TRAII_23_t24_pohja {
             //Tallennetaan muuttujaan keskimmäinen indeksi loppuosataulukosta
             keskimmainen = loppuosaTaulukko[keski];
 
-            System.out.println("Tässä on tämä "+ keskimmainen);
+            System.out.println("Tässä on keskimmainen "+ keskimmainen);
 
             //tallennetaan muuttujaan sen osan lopputeksti, mikä alkaa käsiteltävästä indeksistä
             String tekstiOsuus= teksti.substring(keskimmainen);
 
-            System.out.println("Tässä on tekstivertailuun "+ tekstiOsuus);
+            System.out.println("Tässä on tekstiOsuus "+ tekstiOsuus);
 
             //Mikäli tekstiosuus alkaa samalla kuin avaimen teksti, niin...
             if(tekstiOsuus.startsWith(avain)){
